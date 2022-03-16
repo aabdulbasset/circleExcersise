@@ -37,13 +37,13 @@ jobs:
     steps:
       - checkout
       - aws/copy:
-        arguments: |
-          --acl public-read \
-          --recursive
-        aws-access-key-id: AKIAWLHBGAQEJLT7YYWX
-        aws-secret-access-key: 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
-        from : ../reactnd-contacts-complete/build
-        to : 's3://omaewamoe1'
+            arguments: |
+              --acl public-read \
+              --recursive
+            aws-access-key-id: AWS_ACCESS_KEY_ID_BLUE
+            aws-secret-access-key: AWS_SECRET_ACCESS_KEY_BLUE
+            from : ../reactnd-contacts-complete/build
+            to : 's3://omaewamoe1'
 workflows:
   deploy-example:
     jobs:

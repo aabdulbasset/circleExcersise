@@ -30,12 +30,7 @@ jobs:
       - run:
           name: build backend
           command: |
-            npm run backend:build                  
-  deploy:
-    docker:
-      - image: "cimg/base:stable"
-    steps:
-      - checkout
+            npm run backend:build    
       - aws/copy:
             arguments: |
               --acl public-read \
@@ -43,10 +38,11 @@ jobs:
             aws-access-key-id: AWS_ACCESS_KEY_ID_BLUE
             aws-secret-access-key: AWS_SECRET_ACCESS_KEY_BLUE
             aws-region: AWS_REGION_BLUE
-            from : ../reactnd-contacts-complete/build
-            to : 's3://omaewamoe1'
+            from : ./reactnd-contacts-complete/build
+            to : 's3://omaewamoe1'              
+
+
 workflows:
   deploy-example:
     jobs:
       - build
-      - deploy

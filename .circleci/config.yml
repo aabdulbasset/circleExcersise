@@ -3,6 +3,7 @@ orbs:
   # orgs contain basc recipes and reproducible actions (install node, aws, etc.)
   node: circleci/node@5.0.1
   yarn: itinerisltd/yarn@2.1.1
+  aws: circleci/aws-s3@3.0
   # different jobs are calles later in the workflows sections
 jobs:
   build:
@@ -30,3 +31,21 @@ jobs:
           name: build backend
           command: |
             npm run backend:build                  
+  deploy:
+    docker:
+      - image: "cimg/base:stable"
+    steps:
+      - checkout
+      - aws/copy:
+        arguments: |
+          --acl public-read \
+          --recursive
+        aws-access-key-id: AKIAWLHBGAQEJLT7YYWX
+        aws-secret-access-key: UiHhRZWsCCUT1vzCtqPREn526Zg2hg4+07UFTtNj
+        from : ../reactnd-contacts-complete/build
+        to : 's3://omaewamoe1'
+workflows:
+  deploy-example:
+    jobs:
+      - build
+      - deploy

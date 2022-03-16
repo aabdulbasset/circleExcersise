@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
 
 app.use((req, res, next) => {
   const token = req.get("Authorization");
-
+  console.log("Authorization token done")
   if (token) {
     req.token = token;
     next();
